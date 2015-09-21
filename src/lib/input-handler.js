@@ -1,23 +1,23 @@
 import { entries } from 'quiver-util/object'
-import { ImmmutableMap } from 'quiver-util/immutable'
+import { ImmutableMap } from 'quiver-util/immutable'
 import { ConfigMiddleware } from 'quiver-component-basic'
 import { assertIsActivated } from 'quiver-component-base/util'
 
-const $inputHandler = Symbol('@inputHandler')
+const $toConfig = Symbol('@toConfig')
 const $handlerLoader = Symbol('@loader')
-const $toInputConfig = Symbol('@toConfig')
+const $inputHandler = Symbol('@inputHandler')
 
 export class InputHandlerMiddleware extends ConfigMiddleware {
   constructor(options={}) {
     const {
       toConfig, inputHandler, loader,
-      initComponents = ImmmutableMap()
+      initComponents = ImmutableMap()
     } = options
 
     if(typeof(toConfig) !== 'string' && typeof(toConfig) !== 'symbol')
       throw new TypeError('invalid options.toConfig')
 
-    assertIsActivated(handlerComponent)
+    assertIsActivated(inputHandler)
 
     if(!inputHandler.isHandlerComponent)
       throw new TypeError('options.inputHandler must be handler component')
@@ -27,7 +27,7 @@ export class InputHandlerMiddleware extends ConfigMiddleware {
     super(options)
 
     this[$toConfig] = toConfig
-    this[$inputHandler] = handlerComponent
+    this[$handlerLoader] = loader
   }
 
   configHandlerFn() {
@@ -56,7 +56,7 @@ export class InputHandlerMiddleware extends ConfigMiddleware {
 
 export const inputHandlerMiddleware = (toConfig, handlerComponent, options={}) => {
   options.toConfig = toConfig
-  options.handlerComponent = handlerComponent
+  options.inputHandler = handlerComponent
   return new InputHandlerMiddleware(options).activate()
 }
 

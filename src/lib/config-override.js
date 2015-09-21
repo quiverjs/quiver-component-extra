@@ -1,5 +1,5 @@
 import { ImmutableMap, isImmutableMap } from 'quiver-util/immutable'
-import { ConfigMiddleware } from 'quiver-component-base'
+import { ConfigMiddleware } from 'quiver-component-basic'
 
 const $overrideConfig = Symbol('@overrideConfig')
 
