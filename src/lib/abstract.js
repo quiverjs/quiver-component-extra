@@ -63,11 +63,11 @@ const abstractComponentClass = Parent =>
 
 export class AbstractHandler extends abstractComponentClass(HandleableBuilder) {
   mainHandleableBuilderFn() {
-    return this.concreteComponent.toHandleableBuilder()
+    return this.concreteComponent.handleableBuilderFn()
   }
 
   validateImpl(component) {
-    assertIsHandlerComponent(component)
+    assertHandlerComponent(component)
   }
 
   get componentType() {
@@ -77,11 +77,11 @@ export class AbstractHandler extends abstractComponentClass(HandleableBuilder) {
 
 export class AbstractMiddleware extends abstractComponentClass(HandleableMiddleware) {
   mainHandleableMiddlewareFn() {
-    return this.concreteComponent.toHandleableMiddleware()
+    return this.concreteComponent.handleableMiddlewareFn()
   }
 
   validateImpl(component) {
-    assertIsMiddlewareComponent(component)
+    assertMiddlewareComponent(component)
   }
 
   get componentType() {
@@ -89,19 +89,20 @@ export class AbstractMiddleware extends abstractComponentClass(HandleableMiddlew
   }
 }
 
-export const abstractHandler = (implKey, options={}) => {
+export const abstractHandler = function(implKey, options={}) {
   options.implKey = implKey
-  return new AbstractHandler(options).activate()
+  return new AbstractHandler(options)
 }
 
-export const abstractMiddleware = (implKey, options={}) => {
+export const abstractMiddleware = function(implKey, options={}) {
   options.implKey = implKey
-  return new AbstractMiddleware(options).activate()
+  return new AbstractMiddleware(options)
 }
 
 export const implement = function(rawImplMap) {
   const implMap = ImmutableMap(rawImplMap)
   for(let subComponent of allSubComponents(this)) {
-    subComponent.implement(implMap)
+    if(subComponent.implement)
+      subComponent.implement(implMap)
   }
 }

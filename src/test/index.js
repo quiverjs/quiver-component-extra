@@ -1,3 +1,5 @@
+import './abstract'
 import './args-filter'
 import './config'
+import './extend'
 import './input-handler'

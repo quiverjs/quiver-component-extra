@@ -50,7 +50,7 @@ export class InputHandlerMiddleware extends ConfigMiddleware {
   }
 }
 
-export const inputHandlerMiddleware = (toConfig, handlerComponent, options={}) => {
+export const inputHandlerMiddleware = function(toConfig, handlerComponent, options={}) {
   options.toConfig = toConfig
   options.inputHandler = handlerComponent
   return new InputHandlerMiddleware(options)

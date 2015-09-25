@@ -1,3 +1,5 @@
+export { abstractHandler, abstractMiddleware } from './abstract'
+
 export { argsFilter, argsBuilderFilter } from './args-filter'
 
 export { configAliasMiddleware } from './config-alias'

@@ -35,7 +35,7 @@ export class ExtendMiddleware extends HandleableMiddleware {
       'options.extendMiddleware must be middleware component')
 
     super(options)
-    
+
     this.setSubComponent($extendMiddleware, extendMiddleware)
   }
 
@@ -45,12 +45,12 @@ export class ExtendMiddleware extends HandleableMiddleware {
   }
 }
 
-export const extendHandler = (handlerComponent, options={}) => {
+export const extendHandler = function(handlerComponent, options={}) {
   options.extendHandler = handlerComponent
   return new ExtendHandler(options).activate()
 }
 
-export const extendMiddleware = (middlewareComponent, options={}) => {
+export const extendMiddleware = function(middlewareComponent, options={}) {
   options.extendMiddleware = middlewareComponent
   return new ExtendMiddleware(options).activate()
 }

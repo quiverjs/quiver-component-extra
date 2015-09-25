@@ -29,7 +29,7 @@ export class ConfigAliasMiddleware extends ConfigMiddleware {
   }
 }
 
-export const configAliasMiddleware = (aliasConfig, options={}) => {
+export const configAliasMiddleware = function(aliasConfig, options={}) {
   options.aliasConfig = ImmutableMap(aliasConfig)
   return new ConfigAliasMiddleware(options)
 }

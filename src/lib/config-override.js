@@ -29,7 +29,7 @@ export class ConfigOverrideMiddleware extends ConfigMiddleware {
   }
 }
 
-export const configOverrideMiddleware = (overrideConfig, options={}) => {
+export const configOverrideMiddleware = function(overrideConfig, options={}) {
   options.overrideConfig = ImmutableMap(overrideConfig)
   return new ConfigOverrideMiddleware(options)
 }
