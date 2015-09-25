@@ -13,7 +13,7 @@ import {
   loadHandler, createConfig, createHandleable
 } from 'quiver-component-base/util'
 
-import { extendHandler } from '../lib/constructor'
+import { extend } from '../lib/method'
 
 test('extend component test', assert => {
   assert::asyncTest('extend handler test', async function(assert) {
@@ -36,7 +36,7 @@ test('extend component test', assert => {
           return handleable.set('bar', 'beer')
         }))
 
-    const extended = extendHandler(main)
+    const extended = main::extend()
       .addMiddleware(handleableFilter(
         (config, handleable) => {
           assert.equal(handleable.get('foo'), 'food')

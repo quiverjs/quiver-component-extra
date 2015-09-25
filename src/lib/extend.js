@@ -58,3 +58,13 @@ export const extendMiddleware = function(middlewareComponent, options={}) {
   options.extendMiddleware = middlewareComponent
   return new ExtendMiddleware(options)
 }
+
+export const extend = function() {
+  if(this.isHandlerComponent)
+    return extendHandler(this)
+
+  if(this.isMiddlewareComponent)
+    return extendMiddleware(this)
+
+  throw new Error('unknown component type to extend')
+}
