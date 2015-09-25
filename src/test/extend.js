@@ -1,10 +1,5 @@
 import test from 'tape'
 import { asyncTest } from 'quiver-util/tape'
-import { ImmutableMap } from 'quiver-util/immutable'
-
-import {
-  createArgs, simpleHandlerLoader
-} from 'quiver-component-basic/util'
 
 import { handleableFilter } from 'quiver-component-basic/constructor'
 import { handleableBuilder } from 'quiver-component-base/constructor'

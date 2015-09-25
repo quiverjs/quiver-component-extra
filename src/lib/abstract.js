@@ -5,7 +5,7 @@ import {
 } from 'quiver-component-base'
 
 import {
-  allSubComponents,
+  bindLoader, handleableLoader, allSubComponents,
   assertHandlerComponent, assertMiddlewareComponent
 } from 'quiver-component-base/util'
 
@@ -63,7 +63,7 @@ const abstractComponentClass = Parent =>
 
 export class AbstractHandler extends abstractComponentClass(HandleableBuilder) {
   mainHandleableBuilderFn() {
-    return this.concreteComponent.handleableBuilderFn()
+    return bindLoader(this.concreteComponent, handleableLoader)
   }
 
   validateImpl(component) {

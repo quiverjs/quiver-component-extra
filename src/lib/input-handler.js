@@ -1,6 +1,6 @@
 import { entries } from 'quiver-util/object'
 import { ConfigMiddleware } from 'quiver-component-basic'
-import { assertHandlerComponent } from 'quiver-component-base/util'
+import { bindLoader, assertHandlerComponent } from 'quiver-component-base/util'
 
 const $toConfig = Symbol('@toConfig')
 const $handlerLoader = Symbol('@loader')
@@ -29,14 +29,13 @@ export class InputHandlerMiddleware extends ConfigMiddleware {
   configHandlerFn() {
     const handlerComponent = this.inputHandlerComponent
 
-    const componentId = handlerComponent.id
-    const builder = handlerComponent.handleableBuilderFn()
-
     const loader = this[$handlerLoader] || handlerComponent.handlerLoader
+    const loadHandler = bindLoader(handlerComponent, loader)
+
     const toConfig = this[$toConfig]
 
     return async function(config) {
-      const handler = await loader(config, componentId, builder)
+      const handler = await loadHandler(config)
       return config.set(toConfig, handler)
     }
   }

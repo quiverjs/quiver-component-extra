@@ -3,6 +3,7 @@ import {
 } from 'quiver-component-base'
 
 import {
+  bindLoader, handleableLoader,
   assertHandlerComponent, assertMiddlewareComponent
 } from 'quiver-component-base/util'
 
@@ -23,11 +24,7 @@ export class ExtendHandler extends HandleableBuilder {
 
   mainHandleableBuilderFn() {
     const extendHandler = this.getSubComponent($extendHandler)
-    const { id, handlerLoader } = extendHandler
-    const builder = extendHandler.handleableBuilderFn()
-
-    return config =>
-      handlerLoader(config, id, builder)
+    return bindLoader(extendHandler, handleableLoader)
   }
 }
 
