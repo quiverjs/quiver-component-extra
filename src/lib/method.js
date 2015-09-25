@@ -1,3 +1,5 @@
+export { implement } from './abstract'
+
 export { filterArgs } from './args-filter'
 
 export { aliasConfig } from './config-alias'

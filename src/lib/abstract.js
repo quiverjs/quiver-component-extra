@@ -1,39 +1,43 @@
-import { fieldAccessor } from 'quiver-util/function'
 import { ImmutableMap } from 'quiver-util/immutable'
-import { HandleableBuilder, HandleableMiddleware } from 'quiver-component-base'
+
 import {
-  assertIsHandlerComponent, assertIsMiddlewareComponent
+  HandleableBuilder, HandleableMiddleware
+} from 'quiver-component-base'
+
+import {
+  allSubComponents,
+  assertHandlerComponent, assertMiddlewareComponent
 } from 'quiver-component-base/util'
 
-const $implGetter = Symbol('@implKey')
+const $implKey = Symbol('@implKey')
 const $concreteComponent = Symbol('@concreteComponent')
 const $defaultComponent = Symbol('@defaultComponent')
 
 const abstractComponentClass = Parent =>
   class AbstractComponent extends Parent {
     constructor(options={}) {
-      const {
-        implKey, defaultComponent,
-        initComponents = ImmutableMap()
-      } = options
+      const { implKey, defaultComponent } = options
 
       if(!implKey)
         throw new Error('implKey required for constructing abstract component')
 
-      this[$implGetter] = fieldAccessor(implKey)
+      super(options)
+
+      this.rawComponent[$implKey] = implKey
 
       if(defaultComponent) {
         this.validateImpl(defaultComponent)
-        options.initComponents = initComponents.set($defaultComponent, defaultComponent)
+        this.setSubComponent($defaultComponent, defaultComponent)
       }
-
-      super(options)
     }
 
     implement(implMap) {
       if(this.getSubComponent($concreteComponent)) return
 
-      const concreteComponent = this[$implGetter](implMap)
+      const implKey = this[$implKey]
+
+      const concreteComponent = implMap.get(implKey)
+
       if(concreteComponent) {
         this.validateImpl(concreteComponent)
         this.setSubComponent($concreteComponent, concreteComponent)
@@ -93,4 +97,11 @@ export const abstractHandler = (implKey, options={}) => {
 export const abstractMiddleware = (implKey, options={}) => {
   options.implKey = implKey
   return new AbstractMiddleware(options).activate()
+}
+
+export const implement = function(rawImplMap) {
+  const implMap = ImmutableMap(rawImplMap)
+  for(let subComponent of allSubComponents(this)) {
+    subComponent.implement(implMap)
+  }
 }

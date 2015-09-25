@@ -14,7 +14,7 @@
   "dependencies": {
     "quiver-util": "~1.1.0",
     "babel-runtime": "^5.8.24",
-    "quiver-component-base": "~1.0.6",
+    "quiver-component-base": "~1.0.8",
     "quiver-component-basic": "~1.0.3"
   },
   "devDependencies": {

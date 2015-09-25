@@ -1,22 +1,24 @@
-import { ImmutableMap } from 'quiver-util/immutable'
-import { HandleableBuilder, HandleableMiddleware } from 'quiver-component-base'
+import {
+  HandleableBuilder, HandleableMiddleware
+} from 'quiver-component-base'
+
+import {
+  assertHandlerComponent, assertMiddlewareComponent
+} from 'quiver-component-base/util'
 
 const $extendHandler = Symbol('@extendHandler')
 const $extendMiddleware = Symbol('@extendMiddleware')
 
 export class ExtendHandler extends HandleableBuilder {
   constructor(options={}) {
-    const {
-      extendHandler,
-      initComponents = ImmutableMap()
-    } = options
+    const { extendHandler } = options
 
-    if(!extendHandler || !extendHandler.isHandlerComponent)
-      throw new TypeError('options.extendHandler must be handler component')
-
-    options.initComponents = initComponents.set($extendHandler, extendHandler)
+    assertHandlerComponent(extendHandler,
+      'options.extendHandler must be handler component')
 
     super(options)
+
+    this.setSubComponent($extendHandler, extendHandler)
   }
 
   mainHandleableBuilderFn() {
@@ -27,17 +29,14 @@ export class ExtendHandler extends HandleableBuilder {
 
 export class ExtendMiddleware extends HandleableMiddleware {
   constructor(options={}) {
-    const {
-      extendMiddleware,
-      initComponents = ImmutableMap()
-    } = options
+    const { extendMiddleware } = options
 
-    if(!extendMiddleware || !extendMiddleware.isMiddlewareComponent)
-      throw new TypeError('options.extendMiddleware must be middleware component')
-
-    options.initComponents = initComponents.set($extendMiddleware, extendMiddleware)
+    assertMiddlewareComponent(extendMiddleware,
+      'options.extendMiddleware must be middleware component')
 
     super(options)
+    
+    this.setSubComponent($extendMiddleware, extendMiddleware)
   }
 
   mainHandleableMiddlewareFn() {
