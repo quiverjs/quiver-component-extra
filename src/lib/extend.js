@@ -23,7 +23,11 @@ export class ExtendHandler extends HandleableBuilder {
 
   mainHandleableBuilderFn() {
     const extendHandler = this.getSubComponent($extendHandler)
-    return extendHandler.handleableBuilderFn()
+    const { id, handlerLoader } = extendHandler
+    const builder = extendHandler.handleableBuilderFn()
+
+    return config =>
+      handlerLoader(config, id, builder)
   }
 }
 
@@ -47,10 +51,10 @@ export class ExtendMiddleware extends HandleableMiddleware {
 
 export const extendHandler = function(handlerComponent, options={}) {
   options.extendHandler = handlerComponent
-  return new ExtendHandler(options).activate()
+  return new ExtendHandler(options)
 }
 
 export const extendMiddleware = function(middlewareComponent, options={}) {
   options.extendMiddleware = middlewareComponent
-  return new ExtendMiddleware(options).activate()
+  return new ExtendMiddleware(options)
 }

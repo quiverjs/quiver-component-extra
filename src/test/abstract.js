@@ -14,9 +14,8 @@ import {
   loadHandler, createConfig
 } from 'quiver-component-base/util'
 
+import { abstractHandler } from '../lib/constructor'
 import { inputHandler, implement } from '../lib/method'
-
-import { abstractHandler, abstractMiddleware } from '../lib/constructor'
 
 test('abstract component test', assert => {
   assert.test('basic abstract handler test', assert => {
