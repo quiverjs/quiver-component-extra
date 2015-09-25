@@ -1,13 +1,14 @@
-import { ImmmutableMap } from 'quiver-util/immutable'
+import { ImmutableMap } from 'quiver-util/immutable'
 import { HandleableBuilder, HandleableMiddleware } from 'quiver-component-base'
 
 const $extendHandler = Symbol('@extendHandler')
+const $extendMiddleware = Symbol('@extendMiddleware')
 
 export class ExtendHandler extends HandleableBuilder {
   constructor(options={}) {
     const {
       extendHandler,
-      initComponents = ImmmutableMap()
+      initComponents = ImmutableMap()
     } = options
 
     if(!extendHandler || !extendHandler.isHandlerComponent)
@@ -28,7 +29,7 @@ export class ExtendMiddleware extends HandleableMiddleware {
   constructor(options={}) {
     const {
       extendMiddleware,
-      initComponents = ImmmutableMap()
+      initComponents = ImmutableMap()
     } = options
 
     if(!extendMiddleware || !extendMiddleware.isMiddlewareComponent)
@@ -41,7 +42,7 @@ export class ExtendMiddleware extends HandleableMiddleware {
 
   mainHandleableMiddlewareFn() {
     const extendMiddleware = this.getSubComponent($extendMiddleware)
-    return extendHandler.handleableBuilderFn()
+    return extendMiddleware.handleableBuilderFn()
   }
 }
 

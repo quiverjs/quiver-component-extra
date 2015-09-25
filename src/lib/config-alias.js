@@ -30,10 +30,10 @@ export class ConfigAliasMiddleware extends ConfigMiddleware {
 }
 
 export const configAliasMiddleware = (aliasConfig, options={}) => {
-  options.aliasConfig = ImmmutableMap(aliasConfig)
+  options.aliasConfig = ImmutableMap(aliasConfig)
   return new ConfigAliasMiddleware(options).activate()
 }
 
 export const aliasConfig = function(config) {
-  return this.addMiddleware(configOverrideMiddleware(config))
+  return this.addMiddleware(ConfigAliasMiddleware(config))
 }

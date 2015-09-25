@@ -30,7 +30,7 @@ export class ConfigOverrideMiddleware extends ConfigMiddleware {
 }
 
 export const configOverrideMiddleware = (overrideConfig, options={}) => {
-  options.overrideConfig = ImmmutableMap(overrideConfig)
+  options.overrideConfig = ImmutableMap(overrideConfig)
   return new ConfigOverrideMiddleware(options).activate()
 }
 

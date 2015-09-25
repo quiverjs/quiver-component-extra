@@ -1,5 +1,9 @@
 import { fieldAccessor } from 'quiver-util/function'
+import { ImmutableMap } from 'quiver-util/immutable'
 import { HandleableBuilder, HandleableMiddleware } from 'quiver-component-base'
+import {
+  assertIsHandlerComponent, assertIsMiddlewareComponent
+} from 'quiver-component-base/util'
 
 const $implGetter = Symbol('@implKey')
 const $concreteComponent = Symbol('@concreteComponent')
@@ -10,7 +14,7 @@ const abstractComponentClass = Parent =>
     constructor(options={}) {
       const {
         implKey, defaultComponent,
-        initComponents = ImmmutableMap()
+        initComponents = ImmutableMap()
       } = options
 
       if(!implKey)
@@ -79,4 +83,14 @@ export class AbstractMiddleware extends abstractComponentClass(HandleableMiddlew
   get componentType() {
     return 'AbstractMiddleware'
   }
+}
+
+export const abstractHandler = (implKey, options={}) => {
+  options.implKey = implKey
+  return new AbstractHandler(options).activate()
+}
+
+export const abstractMiddleware = (implKey, options={}) => {
+  options.implKey = implKey
+  return new AbstractMiddleware(options).activate()
 }
