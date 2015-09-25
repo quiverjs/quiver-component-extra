@@ -35,5 +35,5 @@ export const configOverrideMiddleware = (overrideConfig, options={}) => {
 }
 
 export const overrideConfig = function(config) {
-  this.addMiddleware(configOverrideMiddleware(config))
+  return this.addMiddleware(configOverrideMiddleware(config))
 }

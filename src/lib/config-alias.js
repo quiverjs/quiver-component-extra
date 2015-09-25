@@ -35,5 +35,5 @@ export const configAliasMiddleware = (aliasConfig, options={}) => {
 }
 
 export const aliasConfig = function(config) {
-  return this.addMiddleware(ConfigAliasMiddleware(config))
+  return this.addMiddleware(configAliasMiddleware(config))
 }

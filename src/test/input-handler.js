@@ -9,41 +9,43 @@ import { simpleHandler, simpleHandlerBuilder } from 'quiver-component-basic/cons
 import { inputHandler } from '../lib/method'
 
 test('input handler component test', assert => {
-    assert::asyncTest('should load inner handler', async function(assert) {
-      assert.plan(3)
+  assert::asyncTest('should load inner handler', async function(assert) {
+    assert.plan(3)
 
-      const innerHandler = simpleHandler(
-        (args, body) => `Hello, ${ args.get('name') }. You said ${body}.`,
-        {
-          inputType: 'text',
-          outputType: 'text'
-        })
+    const innerHandler = simpleHandler(
+      (args, body) => `Hello, ${ args.get('name') }. You said ${body}.`,
+      {
+        inputType: 'text',
+        outputType: 'text'
+      })
 
-      const main = simpleHandlerBuilder(
-        async function(config) {
-          const inner = config.get('inner')
-          assert.ok(inner)
+    const main = simpleHandlerBuilder(
+      async function(config) {
+        const inner = config.get('inner')
+        assert.ok(inner)
 
-          const result = await inner(
-            createArgs({ name: 'John' }),
-            'bonjour')
+        const result = await inner(
+          createArgs({ name: 'John' }),
+          'bonjour')
 
-          assert.equal(result, 'Hello, John. You said bonjour.',
-            'should call inner handler successfully with right handler signature.')
+        assert.equal(result, 'Hello, John. You said bonjour.',
+          'should call inner handler successfully with right handler signature.')
 
-          return () => 'hello world'
+        return () => 'hello world'
 
-        }, {
-          inputType: 'empty',
-          outputType: 'text'
-        })
-        ::inputHandler('inner', innerHandler)
+      }, {
+        inputType: 'empty',
+        outputType: 'text'
+      })
+      ::inputHandler('inner', innerHandler)
 
-      const handler = await loadHandler(createConfig(), main)
+    const handler = await loadHandler(createConfig(), main)
 
-      const result = await handler(createArgs())
-      assert.equal(result, 'hello world')
+    const result = await handler(createArgs())
+    assert.equal(result, 'hello world')
 
-      assert.end()
-    })
+    assert.end()
+  })
+
+  assert.end()
 })
