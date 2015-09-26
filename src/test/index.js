@@ -1,5 +1,6 @@
 import './abstract'
 import './args-filter'
 import './config'
+import './error-filter'
 import './extend'
 import './input-handler'

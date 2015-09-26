@@ -34,6 +34,6 @@ const safeErrorHandlerFn = errorHandler => {
 export const errorFilter = componentConstructor(
   ErrorFilter, 'errorHandlerFn', safeErrorHandlerFn)
 
-export const filterError = function(errorHandler) {
+export const handleError = function(errorHandler) {
   return this.addMiddleware(errorFilter(errorHandler))
 }
