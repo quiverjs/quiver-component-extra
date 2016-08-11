@@ -105,4 +105,5 @@ export const implement = function(rawImplMap) {
     if(subComponent.implement)
       subComponent.implement(implMap)
   }
+  return this
 }
