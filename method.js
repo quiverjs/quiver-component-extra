@@ -1,2 +1,2 @@
 'use strict'
-module.exports = require('./out/lib/method')
+module.exports = require('./dist/lib/method')

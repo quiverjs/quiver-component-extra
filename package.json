@@ -6,21 +6,21 @@
   },
   "name": "quiver-component-extra",
   "desription": "Additional useful component types",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "homepage": "https://github.com/quiverjs/quiver-component-extra",
   "repository": {
     "url": "git@github.com:quiverjs/quiver-component-extra.git"
   },
   "dependencies": {
-    "quiver-component-base": "^1.1.0",
-    "quiver-component-basic": "^1.1.0",
-    "quiver-stream-util": "^1.4.6",
-    "quiver-util": "^1.2.1"
+    "quiver-component-base": "^1.2.1",
+    "quiver-component-basic": "^1.2.0",
+    "quiver-stream-util": "^1.5.1",
+    "quiver-util": "^1.2.6"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "quiver-babel": "^1.0.1",
-    "tape": "^4.5.1"
+    "babel-cli": "^6.16.0",
+    "quiver-babel": "^1.0.3",
+    "tape": "^4.6.2"
   },
   "bugs": {
     "url": "https://github.com/quiverjs/quiver-component-extra/issues",
@@ -33,6 +33,6 @@
     "prepublish": "make build"
   },
   "engines": {
-    "node": "^6.2.2"
+    "node": "^6.9.1"
   }
 }

@@ -1,2 +1,2 @@
 'use strict'
-module.exports = require('./out/lib/constructor')
+module.exports = require('./dist/lib/constructor')
